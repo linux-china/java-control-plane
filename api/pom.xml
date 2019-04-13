@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -12,6 +13,7 @@
 
     <properties>
         <checkstyle.skip>true</checkstyle.skip>
+        <reactive-grpc.version>0.10.0-RC1</reactive-grpc.version>
     </properties>
 
     <dependencies>
@@ -33,6 +35,12 @@
             <version>${annotation-api.version}</version>
         </dependency>
 
+        <!-- reactor grpc stub-->
+        <dependency>
+            <groupId>com.salesforce.servicelibs</groupId>
+            <artifactId>reactor-grpc-stub</artifactId>
+            <version>${reactive-grpc.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -40,7 +48,7 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.5.0.Final</version>
+                <version>1.6.1</version>
             </extension>
         </extensions>
         <plugins>
@@ -52,7 +60,15 @@
                     <protocArtifact>com.google.protobuf:protoc:3.5.1-1:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.9.0:exe:${os.detected.classifier}</pluginArtifact>
-
+                    <protocPlugins>
+                        <protocPlugin>
+                            <id>reactor-grpc</id>
+                            <groupId>com.salesforce.servicelibs</groupId>
+                            <artifactId>reactor-grpc</artifactId>
+                            <version>${reactive-grpc.version}</version>
+                            <mainClass>com.salesforce.reactorgrpc.ReactorGrpcGenerator</mainClass>
+                        </protocPlugin>
+                    </protocPlugins>
                     <useArgumentFile>true</useArgumentFile>
                     <checkStaleness>true</checkStaleness>
                     <staleMillis>10000</staleMillis>
