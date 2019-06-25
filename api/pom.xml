@@ -35,17 +35,6 @@
             <version>${annotation-api.version}</version>
         </dependency>
 
-        <!-- reactor grpc stub-->
-        <dependency>
-            <groupId>com.salesforce.servicelibs</groupId>
-            <artifactId>reactor-grpc-stub</artifactId>
-            <version>${reactive-grpc.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -74,10 +63,12 @@
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.6.1</version>
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                    </protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                    
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                    </pluginArtifact>
+
                     <useArgumentFile>true</useArgumentFile>
                     <checkStaleness>true</checkStaleness>
                     <staleMillis>10000</staleMillis>
@@ -97,6 +88,19 @@
     <profiles>
         <profile>
             <id>reactor</id>
+            <dependencies>
+                <!-- reactor grpc stub-->
+                <dependency>
+                    <groupId>com.salesforce.servicelibs</groupId>
+                    <artifactId>reactor-grpc-stub</artifactId>
+                    <version>${reactive-grpc.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>io.projectreactor</groupId>
+                    <artifactId>reactor-core</artifactId>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
