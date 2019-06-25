@@ -13,7 +13,7 @@
 
     <properties>
         <checkstyle.skip>true</checkstyle.skip>
-        <reactive-grpc.version>0.10.0-RC1</reactive-grpc.version>
+        <reactive-grpc.version>0.10.0</reactive-grpc.version>
     </properties>
 
     <dependencies>
